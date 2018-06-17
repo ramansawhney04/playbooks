@@ -1,0 +1,11 @@
+---
+- hosts: all
+  user: root
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: uptime log
+     raw: /usr/bin/uptime > /home/raman/uptime.log
+   - name: List the /var directory and log it
+     raw: ls- al /var >> /home/raman/dir.list
+     run_once: true

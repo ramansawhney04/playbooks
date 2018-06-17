@@ -1,0 +1,15 @@
+---
+- hosts: db
+  become: true
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  vars:
+     playbook_type: conditional example
+  vars_files:
+   - conf/copyright.yml
+   - conf/webdefaults.yml     
+  tasks:
+   - name: Install apache with condition
+     command: apt-get install -y apache2
+     when: ansible_os_family == "Debian"

@@ -1,0 +1,5 @@
+---
+apache_version: 206
+apache_mode_req: mode_ssl
+pkg_lynx: lynx
+

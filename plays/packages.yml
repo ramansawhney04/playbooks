@@ -1,0 +1,9 @@
+---
+- name: install packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+   - lynx
+   - apache2
+   - telnet
+   - glances
+  

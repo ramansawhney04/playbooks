@@ -1,0 +1,11 @@
+---
+ - hosts: web
+   become: true
+   become_method: su
+   vars: 
+     control_server: web
+     web_root: /var/www/html
+   tasks:
+   - name: install lynx on web app server
+     apt: pkg=lynx state=installed 
+     

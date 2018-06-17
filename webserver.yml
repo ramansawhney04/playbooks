@@ -1,0 +1,23 @@
+---
+- hosts: web
+  user: root
+  gather_facts: yes
+  tasks: 
+   - name: Date/time stamp for playbook starts
+     raw: /bin/date > /home/raman/playbook_start.log
+   - name: Install apache
+     apt: pkg=apache2 state=present
+   - name: start web service
+     service: name=apache2 state=restarted
+   - name: web service is running
+     command: systemctl status apache2
+     register: result
+   - debug: var=result
+   - name: install client software
+     apt: name=telnet state=latest
+   - name: install client software lynx
+     apt: pkg=lynx state=latest
+   - name: log all pkgs install on system
+     raw: apt list --installed > /home/raman/installed.log 
+   - name: date/time stamp for when playbook ends
+     raw: /bin/date > /home/raman/playbook_end.log

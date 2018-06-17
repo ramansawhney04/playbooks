@@ -1,0 +1,25 @@
+---
+- hosts: web
+  user: raman
+  become: true
+  become_method: sudo
+  connection: ssh
+  vars: 
+    playbook_version: 0.1b
+  vars_files:
+  - conf/copyright.yml
+  - conf/webdefaults.yml
+  vars_prompt:
+  - name: pkg_name
+    prompt: Install which package
+  tasks: 
+  - name: installing apache
+    action: apt pkg=apache2 state=absent
+  - name: install httpd
+    action: apt pkg=apache2 state=present
+    notify: Restart HTTPD
+  - name: lynx
+    apt: pkg={{ pkg_lynx }} state=installed
+  handlers:
+  - name: Restart HTTPD
+    action: service name=apache2 state=restarted

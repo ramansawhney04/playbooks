@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  user: raman
+  connection: ssh
+  gather_facts: no
+  tasks: 
+    - include: plays/packages.yml
+    - name: Verify Telnet is installed
+      raw: dpkg --get-selections | grep telnet > /home/raman/pkgs.log

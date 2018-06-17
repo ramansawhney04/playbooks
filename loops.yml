@@ -1,0 +1,24 @@
+---
+- hosts: all
+  user: raman
+  become: true
+  become_method: sudo
+  gather_facts: no
+  tasks:
+   - name: Add a list of user
+     user: name={{ item }} state=present
+     with_items:
+      - user1
+      - user2
+      - user3
+
+   - name: install packages
+     apt: name={{ item }} state=latest
+     with_items:
+      - lynx
+      - telnet
+   - name: install mysql
+     apt: name=mysql-server state=present  
+
+   - name: restart mysql
+     service: name=mysql state=restarted  
